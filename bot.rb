@@ -16,7 +16,7 @@ client = Slack::RealTime::Client.new
 
 # listen for hello (connection) event - https://api.slack.com/events/hello
 client.on :hello do
-  logger.debug("Connected '#{client.self['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
+  logger.debug("Connected '#{client.selhif['name']}' to '#{client.team['name']}' team at https://#{client.team['domain']}.slack.com.")
 end
 
 # listen for channel_joined event - https://api.slack.com/events/channel_joined
@@ -33,9 +33,9 @@ end
 client.on :message do |data|
 
   case data['text']
-  when 'hi', 'bot hi' then
+  when 'bot question' then
     client.typing channel: data['channel']
-    client.message channel: data['channel'], text: "Hello <@#{data['user']}>."
+    client.message channel: data['channel'], text: "here is a random question."
     logger.debug("<@#{data['user']}> said hi")
 
     if direct_message?(data)
